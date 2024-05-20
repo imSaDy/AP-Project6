@@ -18,7 +18,7 @@ string substring(string& s ,int l ,int r){
 	return sub ;
 }
 
-vector <string> tokenize(string& s ,char separator){
+vector <string> tokenize(string s ,char separator){
 	vector <string> token ;
 	int lastSeparator = BACKOFSTRING ;
 	for (int i = 0; i < s.size(); i++){
@@ -26,6 +26,9 @@ vector <string> tokenize(string& s ,char separator){
 			token.push_back(substring(s ,lastSeparator + 1 ,i - 1)) ; 
 			lastSeparator = i ; 
 		}
+        else if (s[i] == separator){
+            lastSeparator = i ; 
+        }
 	}
 	token.push_back(substring(s ,lastSeparator + 1 ,s.size() - 1)) ; 
 	if (token.back() == EMPTYSTRING)
