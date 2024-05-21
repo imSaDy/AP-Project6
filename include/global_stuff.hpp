@@ -8,8 +8,13 @@
 
 using namespace std ; 
 
+#define all(v) v.begin() ,v.end() 
+
 const int NO_VALUE = -1 ; 
 const int BACKOFSTRING = -1 ;
+
+const int TYPE_INDEX = 0 ; 
+const int FUNCTION_NAME_INDEX = 1 ; 
 
 const char SEP = ' ' ; 
 const char COLLON = ':' ; 
@@ -24,6 +29,21 @@ const string BAD_REQUEST = "Bad Request"  ;
 const string NOT_FOUND = "Not Found" ; 
 const string PERMISSION_DENIED = "Permission Denied" ; 
 const string EMPTY = "Empty" ; 
+const string POST_CAP = "POST" ; 
+const string GET = "GET" ; 
+const string DELETE = "DELETE" ;
+const string PUT = "PUT" ; 
+const string LOGIN = "login" ;
+const string LOGOUT = "logout" ; 
+const string CONNECT = "connect" ; 
+const string ID = "id" ; 
+const string PASSWORD = "password" ;
+const string POST = "post" ; 
+const string MESSAGE = "message" ; 
+const string TITLE = "title" ; 
+const string UT_ACCOUNT = "UT_account" ;
+const string PERSONAL_PAGE = "personal_page" ; 
+const string POST_ID = "post_id" ;
 
 enum UserType {
     STUDENT, 
@@ -31,3 +51,19 @@ enum UserType {
     ADMIN,
     NOT_LOGIN
 };
+
+struct Post{
+    Post(string title_ ,string message_ ,int id_){title = title_; message = message_; id = id_;}
+    int id ; 
+    string title ,message ; 
+};
+
+const vector <string> request_types = {POST_CAP ,GET ,DELETE ,PUT} ; 
+const vector <string> POST_FUNCTIONS = {LOGIN ,LOGOUT ,CONNECT ,POST} ;
+const vector <string> DELETE_FUNCTIONS = {POST} ; 
+const vector <string> GET_FUNCTIONS = {PERSONAL_PAGE ,POST} ; 
+
+
+
+
+
