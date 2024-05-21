@@ -44,6 +44,11 @@ const string TITLE = "title" ;
 const string UT_ACCOUNT = "UT_account" ;
 const string PERSONAL_PAGE = "personal_page" ; 
 const string POST_ID = "post_id" ;
+const string NEW_POST = "New Post" ; 
+const string NEW_COURSE_OFFERING = "New Course Offering" ; 
+const string GET_COURSE = "Get Course" ; 
+const string DELETE_COURSE = "Delete Course" ; 
+const string NOTIFICATION = "notification" ; 
 
 enum UserType {
     STUDENT, 
@@ -61,7 +66,7 @@ struct Post{
 const vector <string> request_types = {POST_CAP ,GET ,DELETE ,PUT} ; 
 const vector <string> POST_FUNCTIONS = {LOGIN ,LOGOUT ,CONNECT ,POST} ;
 const vector <string> DELETE_FUNCTIONS = {POST} ; 
-const vector <string> GET_FUNCTIONS = {PERSONAL_PAGE ,POST} ; 
+const vector <string> GET_FUNCTIONS = {PERSONAL_PAGE ,POST ,NOTIFICATION} ; 
 
 
 

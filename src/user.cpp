@@ -40,6 +40,27 @@ void User::check_has_post(int id){
     throw NOT_FOUND ; 
 }
 
+void User::notif_connected_users(string message){
+    for (auto user : connected_users){
+        user->add_notif(this ,message) ; 
+    }
+}
+
+void User::add_notif(User *user, string message){
+    notifications.push_back({user ,message}) ; 
+}
+
+void User::print_notifications(){
+    if (notifications.empty())
+        throw EMPTY ; 
+    while (!notifications.empty()){
+        auto user = notifications.back().first ; 
+        string message = notifications.back().second ; 
+        cout << user->get_id() << " " << user->get_name() << ": " << message << endl ; 
+        notifications.pop_back() ; 
+    }
+}
+
 Post* User::find_post_by_id(int id){
     for (auto post : posts){
         if (post->id == id)

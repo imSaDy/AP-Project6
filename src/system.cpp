@@ -14,7 +14,12 @@ System::System(char *arg[]){
         professor->set_major(find_major_by_id(professor->get_major_id())) ; 
         users.push_back(professor) ;
     }
-    users.push_back(new Admin()) ; 
+    admin = new Admin(); 
+    for (auto user : users){
+        user->connect_with(admin) ; 
+        admin->connect_with(user) ; 
+    }
+    users.push_back(admin) ; 
 }
 
 void System::run(){
@@ -126,6 +131,7 @@ void System::post_post(Request* request){
     if (user_type == NOT_LOGIN)
         throw PERMISSION_DENIED ;
     current_user->add_post(request->get_parameter(TITLE) ,request->get_parameter(MESSAGE)); 
+    current_user->notif_connected_users(NEW_POST) ; 
     throw OK ; 
 }
 
@@ -142,6 +148,8 @@ void System::handle_get_request(Request* request){
         get_personal_page(request) ; 
     if ((*it) == POST)
         get_post(request); 
+    if ((*it) == NOTIFICATION)
+        get_notification(request) ; 
 }
 
 void System::get_personal_page(Request* request){
@@ -158,6 +166,10 @@ void System::get_post(Request* request){
     user->print_info(); 
     user->print_post(stoi(request->get_parameter(POST_ID))) ; 
     throw OK ; 
+}
+
+void System::get_notification(Request* request){
+    current_user->print_notifications() ;
 }
 
 void System::handle_delete_request(Request* request){

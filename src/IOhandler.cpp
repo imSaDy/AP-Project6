@@ -15,6 +15,9 @@ void Input::build_tokens(){
         if (!is_text && part[0] == DOUBLEQUOTES){
             is_text = true ; 
             tokens.push_back(text_parts[text_count++]) ;
+            if (part.back() == DOUBLEQUOTES){
+                is_text = false ; 
+            }
         }
         else if (is_text){
             if (part.back() == DOUBLEQUOTES)

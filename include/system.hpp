@@ -28,6 +28,7 @@ public :
     void handle_get_request(Request*); 
     void get_personal_page(Request*);
     void get_post(Request*);
+    void get_notification(Request*);
 private :
     vector <User*> users ;
     vector <Major*> majors ; 
@@ -36,4 +37,5 @@ private :
     UserType user_type ; 
     User* find_user_by_id(int);
     Major* find_major_by_id(int); 
+    Admin* admin; 
 }; 
