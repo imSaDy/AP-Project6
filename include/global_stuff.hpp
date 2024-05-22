@@ -20,7 +20,9 @@ const char SEP = ' ' ;
 const char COLLON = ':' ; 
 const char SEMICOLLON = ';' ;
 const char COMMA = ',' ;  
-const char DOUBLEQUOTES = '\"' ; 
+const char DOUBLEQUOTES = '\"' ;
+const char DASH = '-'  ; 
+const char BACKSLASH = '\\' ;
 
 const string NEW_LINE = "\n" ; 
 const string EMPTYSTRING = "" ;
@@ -49,6 +51,15 @@ const string NEW_COURSE_OFFERING = "New Course Offering" ;
 const string GET_COURSE = "Get Course" ; 
 const string DELETE_COURSE = "Delete Course" ; 
 const string NOTIFICATION = "notification" ; 
+const string COURSE_OFFER = "course_offer" ;
+const string COURSE_ID = "course_id" ; 
+const string CAPACITY = "capacity" ; 
+const string CLASS_NUMBER = "class_number" ; 
+const string PROFESSOR_ID = "professor_id" ; 
+const string TIME = "time" ;
+const string EXAM_DATE = "exam_date" ; 
+const string COURSES = "courses" ; 
+const string MY_COURSES = "my_courses" ; 
 
 enum UserType {
     STUDENT, 
@@ -64,9 +75,10 @@ struct Post{
 };
 
 const vector <string> request_types = {POST_CAP ,GET ,DELETE ,PUT} ; 
-const vector <string> POST_FUNCTIONS = {LOGIN ,LOGOUT ,CONNECT ,POST} ;
-const vector <string> DELETE_FUNCTIONS = {POST} ; 
-const vector <string> GET_FUNCTIONS = {PERSONAL_PAGE ,POST ,NOTIFICATION} ; 
+const vector <string> POST_FUNCTIONS = {LOGIN ,LOGOUT ,CONNECT ,POST ,COURSE_OFFER} ;
+const vector <string> DELETE_FUNCTIONS = {POST ,MY_COURSES} ; 
+const vector <string> GET_FUNCTIONS = {PERSONAL_PAGE ,POST ,NOTIFICATION ,COURSES ,MY_COURSES} ; 
+const vector <string> PUT_FUNCTIONS = {MY_COURSES} ;
 
 
 

@@ -10,6 +10,7 @@ string Request::get_parameter(string word){
             return request[i + 1] ; 
         }
     }
+    return NOT_FOUND ; 
 }
 
 string Request::get_type(){

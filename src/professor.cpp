@@ -18,5 +18,21 @@ void Professor::print_personal_page(){
 }
 
 void Professor::print_info(){
-    cout << name << " " << major->get_name() << " " << position << endl ;
+    cout << name << " " << major->get_name() << " " << position << " " ;
+    for (auto course_offer : course_offers){
+        cout << course_offer->get_course_name() << COMMA ; 
+    }
+    cout << endl ; 
+}
+
+void Professor::check_class_time(Time class_time){
+    for (auto course_offer : course_offers){
+        if (class_time.overlap(course_offer->get_class_time())){
+            throw PERMISSION_DENIED ; 
+        }
+    }
+}
+
+void Professor::add_course_offer(CourseOffer* course_offer){
+    course_offers.push_back(course_offer) ; 
 }

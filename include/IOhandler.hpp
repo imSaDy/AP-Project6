@@ -1,3 +1,5 @@
+#pragma once
+
 #include "global_stuff.hpp"
 #include "file_reader.hpp"
 

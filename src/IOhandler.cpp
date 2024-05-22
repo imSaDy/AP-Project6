@@ -5,7 +5,8 @@ Input::Input(string line_){
 }
 
 void Input::build_tokens(){
-    vector <string> parts = tokenize(line ,SEP) ;
+    Tokenizer tok ; 
+    vector <string> parts = tok.tokenize(line ,SEP) ;
     vector <string> text_parts = get_text_parts() ;
     bool is_text = false ;
     int text_count = 0 ; 
