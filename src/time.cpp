@@ -15,8 +15,8 @@ Time::Time(string time_str)
 
 bool Time::overlap(Time other){
     if (day != other.day) return false ; 
-    if ((start > other.start && start < other.end) || (other.start > start && other.start < end)) return true ; 
-    return false ; 
+    if (start >= other.end || other.start >= end) return false ; 
+    return true ; 
 }
 
 void Time::print(){

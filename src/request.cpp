@@ -2,6 +2,8 @@
 
 Request::Request(vector<string> request_){
     request = request_ ; 
+    if (request.size() <= QUESTION_MARK_INDEX || request[QUESTION_MARK_INDEX] != QUESTION_MARK)
+        throw BAD_REQUEST ; 
 }
 
 string Request::get_parameter(string word){
@@ -10,7 +12,7 @@ string Request::get_parameter(string word){
             return request[i + 1] ; 
         }
     }
-    return NOT_FOUND ; 
+    throw BAD_REQUEST ; 
 }
 
 string Request::get_type(){

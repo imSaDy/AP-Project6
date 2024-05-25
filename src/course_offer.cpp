@@ -1,6 +1,7 @@
 #include "course_offer.hpp"
 
-CourseOffer::CourseOffer(int course_id_, int professor_id_, int capacity_, string class_time_, string exam_date_ ,int course_offer_id_ ,Course* course_ ,string professor_name_){
+CourseOffer::CourseOffer(string course_id_, string professor_id_, int capacity_, string class_time_, string exam_date_ ,string course_offer_id_ ,Course* course_ ,string professor_name_ ,int class_number_){
+    class_number = class_number_ ; 
     course_id = course_id_ ; 
     professor_id = professor_id_ ; 
     capacity = capacity_ ; 
@@ -14,6 +15,7 @@ CourseOffer::CourseOffer(int course_id_, int professor_id_, int capacity_, strin
 void CourseOffer::print(bool all_info){
     cout << course_offer_id << " " << course->get_name() << " " << capacity << " " << professor_name ; 
     if (all_info){
+        cout << " " ;
         class_time.print();
         cout << " " ;
         exam_date.print() ; 
@@ -23,7 +25,7 @@ void CourseOffer::print(bool all_info){
 }
 
 bool CourseOffer::is_in_same_time(CourseOffer *course_offer){
-    if (class_time.equal(course_offer->get_class_time()))
+    if (class_time.overlap(course_offer->get_class_time()))
         return true ; 
     if (exam_date.equal(course_offer->get_exam_date()))
         return true ; 

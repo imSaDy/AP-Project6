@@ -1,13 +1,13 @@
 #include "user.hpp"
 
-User::User(int id_, string name_, string password_){
+User::User(string id_, string name_, string password_){
     id = id_ ;  
     name = name_ ; 
     password = password_ ; 
     new_post_id = 1 ; 
 }
 
-void User::print_post(int id){
+void User::print_post(string id){
     Post* post = find_post_by_id(id) ; 
     cout << post->id << " " << post->title << " " << post->message << endl ; 
 }
@@ -24,15 +24,15 @@ void User::connect_with(User* user){
 }
 
 void User::add_post(string title, string message){
-    posts.push_back(new Post(title ,message ,new_post_id++)) ; 
+    posts.push_back(new Post(title ,message ,to_string(new_post_id++))) ; 
 }
 
-void User::delete_post(int id){
+void User::delete_post(string id){
     Post* post = find_post_by_id(id) ; 
     posts.erase(find(all(posts) ,post)) ; 
 }
 
-void User::check_has_post(int id){
+void User::check_has_post(string id){
     for (auto post : posts){
         if (post->id == id)
             return ; 
@@ -61,7 +61,7 @@ void User::print_notifications(){
     }
 }
 
-Post* User::find_post_by_id(int id){
+Post* User::find_post_by_id(string id){
     for (auto post : posts){
         if (post->id == id)
             return post ; 

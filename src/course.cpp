@@ -1,6 +1,6 @@
 #include "course.hpp"
 
-Course::Course(int id_, int credit_, int prerequisite_, string name_ , vector<int> majors_id_){
+Course::Course(string id_, int credit_, int prerequisite_, string name_ , vector<string> majors_id_){
     id = id_ ; 
     credit = credit_ ; 
     prerequisite = prerequisite_ ; 
@@ -8,7 +8,7 @@ Course::Course(int id_, int credit_, int prerequisite_, string name_ , vector<in
     majors_id = majors_id_ ; 
 }
 
-void Course::check_valid_major_id(int major_id){
+void Course::check_valid_major_id(string major_id){
     for (auto id : majors_id){
         if (id == major_id)
             return ; 

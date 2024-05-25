@@ -4,11 +4,11 @@
 
 class Major {
 public : 
-    Major(int ,string); 
+    Major(string ,string); 
     void print() ; 
-    int get_id(){return id;}
+    string get_id(){return id;}
     string get_name(){return name;}
 private : 
-    int id ; 
+    string id ; 
     string name ; 
 }; 

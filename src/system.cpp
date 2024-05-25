@@ -1,5 +1,7 @@
 #include "system.hpp"
 
+#define hey cout << "hey" << endl ;
+
 System::System(char *arg[]){
     new_id_course_offer = 1 ; 
     user_type = NOT_LOGIN ; 
@@ -30,8 +32,8 @@ void System::run(){
         Input request_line = Input(input) ; 
         request_line.build_tokens() ; 
         vector <string> request_vc = request_line.get_tokens() ; 
-        Request* request = new Request(request_vc) ; 
         try{
+            Request* request = new Request(request_vc) ; 
             handle_request(request) ; 
         }catch(string &ex){
             cout << ex << endl ; 
@@ -39,7 +41,7 @@ void System::run(){
     }
 }
 
-User* System::find_user_by_id(int id){
+User* System::find_user_by_id(string id){
     for (auto user : users){
         if (user->get_id() == id)
             return user ; 
@@ -47,7 +49,7 @@ User* System::find_user_by_id(int id){
     throw NOT_FOUND ; 
 }
 
-Major *System::find_major_by_id(int id){
+Major *System::find_major_by_id(string id){
     for (auto major : majors){
         if (major->get_id() == id)
             return major ; 
@@ -55,7 +57,7 @@ Major *System::find_major_by_id(int id){
     throw NOT_FOUND ; 
 }
 
-Course *System::find_course_by_id(int id){
+Course *System::find_course_by_id(string id){
     for (auto course : courses){
         if (course->get_id() == id)
             return course ; 
@@ -63,7 +65,7 @@ Course *System::find_course_by_id(int id){
     throw NOT_FOUND ; 
 }
 
-CourseOffer *System::find_course_offer_by_id(int id){
+CourseOffer *System::find_course_offer_by_id(string id){
     for (auto course_offer : course_offers){
         if (course_offer->get_course_offer_id() == id)
             return course_offer ; 
@@ -119,7 +121,7 @@ void System::handle_post_request(Request* request){
 void System::post_login(Request* request){
     if (user_type != NOT_LOGIN)
         throw PERMISSION_DENIED ; 
-    User* user = find_user_by_id(request->get_id_to_int()) ;
+    User* user = find_user_by_id(request->get_parameter(ID)) ;
     user->check_password(request->get_parameter(PASSWORD)) ; 
     current_user = user ; 
     user_type = user->get_user_type() ; 
@@ -135,11 +137,11 @@ void System::post_logout(Request* request){
 }
 
 void System::post_connect(Request* request){
-    if (user_type == NOT_LOGIN)
+    if (user_type == NOT_LOGIN || user_type == ADMIN)
         throw PERMISSION_DENIED ;
     if (!is_natural_number(request->get_parameter(ID)))
         throw BAD_REQUEST ;
-    User* user = find_user_by_id(request->get_id_to_int()); 
+    User* user = find_user_by_id(request->get_parameter(ID)); 
     if (current_user->is_connect_with(user) || current_user == user)
         throw BAD_REQUEST ; 
     current_user->connect_with(user) ;
@@ -164,22 +166,30 @@ void System::post_course_offer(Request* request){
         throw BAD_REQUEST ; 
     if (!is_natural_number(request->get_parameter(CLASS_NUMBER)))
         throw BAD_REQUEST ; 
-    Course* course = find_course_by_id(stoi(request->get_parameter(COURSE_ID))) ; 
-    User* user = find_user_by_id(stoi(request->get_parameter(PROFESSOR_ID))) ;
+    Course* course = find_course_by_id(request->get_parameter(COURSE_ID)) ; 
+    User* user = find_user_by_id(request->get_parameter(PROFESSOR_ID)) ;
     Professor* professor = dynamic_cast<Professor*>(user) ; 
     if (user->get_user_type() != PROFESSOR)
         throw PERMISSION_DENIED ; 
     course->check_valid_major_id(professor->get_major_id()) ; 
     professor->check_class_time(Time(request->get_parameter(TIME))) ; 
-    int course_id = stoi(request->get_parameter(COURSE_ID)) ; 
+    string course_id = request->get_parameter(COURSE_ID) ; 
     int capacity = stoi(request->get_parameter(CAPACITY)) ; 
+    int class_number = stoi(request->get_parameter(CLASS_NUMBER))  ;
     string class_time = request->get_parameter(TIME) ; 
     string exam_date = request->get_parameter(EXAM_DATE) ; 
-    CourseOffer* course_offer = new CourseOffer(course_id ,professor->get_id() ,capacity ,class_time ,exam_date ,new_id_course_offer++ ,course ,professor->get_name()) ;
-    professor->add_course_offer(course_offer) ; 
+    CourseOffer* course_offer = new CourseOffer(course_id ,professor->get_id() ,capacity ,class_time ,exam_date ,to_string(new_id_course_offer++) ,course ,professor->get_name() ,class_number) ;
+    professor->add_course_offer(course_offer) ;
     course_offers.push_back(course_offer) ;
-    current_user->notif_connected_users(NEW_COURSE_OFFERING) ;
+    notif_course_offer(professor) ; 
+    //current_user->notif_connected_users(NEW_COURSE_OFFERING) ;
     throw OK ; 
+}
+
+void System::notif_course_offer(Professor* professor){
+    for (auto user : users){
+        user->add_notif(professor ,NEW_COURSE_OFFERING) ;
+    }
 }
 
 void System::handle_put_request(Request* request){
@@ -190,19 +200,19 @@ void System::handle_put_request(Request* request){
         throw PERMISSION_DENIED ; 
     if ((*it) == MY_COURSES)
         put_my_courses(request); 
-    
 }
 
 void System::put_my_courses(Request* request){
     if (!is_natural_number(request->get_parameter(ID)))
         throw BAD_REQUEST ; 
-    CourseOffer* course_offer = find_course_offer_by_id(request->get_id_to_int()) ; 
+    CourseOffer* course_offer = find_course_offer_by_id(request->get_parameter(ID)) ; 
     Student* student = dynamic_cast<Student*>(current_user) ; 
-    course_offer->check_semester(student->get_semester()) ; 
+    course_offer->check_semester(student->get_semester()) ;
     course_offer->check_major(student->get_major_id()) ; 
     student->check_timing(course_offer); 
     student->add_course_offer(course_offer); 
     student->notif_connected_users(GET_COURSE) ; 
+    throw OK ; 
 }
 
 void System::handle_get_request(Request* request){
@@ -219,36 +229,59 @@ void System::handle_get_request(Request* request){
         get_notification(request) ; 
     if ((*it) == COURSES)
         get_courses(request) ; 
+    if ((*it) == MY_COURSES)
+        get_my_courses(request) ;
 }
 
 void System::get_personal_page(Request* request){
-    if (!is_arithmetic_number(request->get_parameter(ID)))
+    if (user_type == ADMIN)
+        throw PERMISSION_DENIED ;
+    if (!is_arithmetic_number(request->get_parameter(ID))){
         throw BAD_REQUEST ;
-    User* user = find_user_by_id(request->get_id_to_int()); 
+    }
+    User* user = find_user_by_id(request->get_parameter(ID)); 
     user->print_personal_page(); 
-    throw OK ; 
 }
 
 void System::get_post(Request* request){
-    User* user = find_user_by_id(request->get_id_to_int()) ; 
-    user->check_has_post(stoi(request->get_parameter(POST_ID)));
+    if (user_type == ADMIN)
+        throw PERMISSION_DENIED ;
+    if (!is_arithmetic_number(request->get_parameter(ID)))
+        throw BAD_REQUEST ;
+    if (!is_natural_number(request->get_parameter(POST_ID)))
+        throw BAD_REQUEST ;
+    User* user = find_user_by_id(request->get_parameter(ID)) ; 
+    user->check_has_post(request->get_parameter(POST_ID));
     user->print_info(); 
-    user->print_post(stoi(request->get_parameter(POST_ID))) ; 
-    throw OK ; 
+    user->print_post(request->get_parameter(POST_ID)) ; 
 }
 
 void System::get_notification(Request* request){
+    if (user_type == ADMIN)
+        throw PERMISSION_DENIED ;
     current_user->print_notifications() ;
 }
 
 void System::get_courses(Request* request){
-    bool all_courses = (request->get_parameter(ID) == NOT_FOUND) ; 
+    if (user_type == ADMIN)
+        throw PERMISSION_DENIED ;
+    bool all_courses = false ; 
+    try{
+        request->get_parameter(ID);
+    }catch (string& ex){
+        all_courses = true ; 
+    }
+    if (!all_courses){
+        if (!is_natural_number(request->get_parameter(ID)))
+            throw BAD_REQUEST ;
+        CourseOffer* course_offer = find_course_offer_by_id(request->get_parameter(ID)) ; 
+    }
     if (course_offers.empty())
         throw EMPTY ; 
     for (auto course_offer : course_offers){
         if (!all_courses){
             bool all_info = true ; 
-            int id = request->get_id_to_int() ; 
+            string id = request->get_parameter(ID) ; 
             if (course_offer->get_course_offer_id() == id){
                 course_offer->print(all_info) ; 
             }
@@ -269,7 +302,7 @@ void System::get_my_courses(Request* request){
 
 void System::handle_delete_request(Request* request){
     auto it = find(all(DELETE_FUNCTIONS) ,request->get_function_name()) ; 
-    if (it == POST_FUNCTIONS.end())
+    if (it == DELETE_FUNCTIONS.end())
         throw NOT_FOUND ; 
     if (user_type == NOT_LOGIN)
         throw PERMISSION_DENIED ;
@@ -280,7 +313,9 @@ void System::handle_delete_request(Request* request){
 }
 
 void System::delete_post(Request* request){
-    current_user->delete_post(request->get_id_to_int()) ;
+    if (!is_natural_number(request->get_parameter(ID)))
+        throw BAD_REQUEST ; 
+    current_user->delete_post(request->get_parameter(ID)) ;
     throw OK ;
 }
 
@@ -289,7 +324,9 @@ void System::delete_my_courses(Request* request){
         throw PERMISSION_DENIED ; 
     if (!is_natural_number(request->get_parameter(ID)))
         throw BAD_REQUEST ; 
-    CourseOffer* course_offer = find_course_offer_by_id(request->get_id_to_int()) ; 
+    CourseOffer* course_offer = find_course_offer_by_id(request->get_parameter(ID)) ; 
     Student* student = dynamic_cast<Student*>(current_user) ; 
     student->delete_course_offer(course_offer) ; 
+    student->notif_connected_users(DELETE_COURSE) ; 
+    throw OK ; 
 }

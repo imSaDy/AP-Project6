@@ -1,6 +1,6 @@
 #include "major.hpp"
 
-Major::Major(int id_, string name_){
+Major::Major(string id_, string name_){
     id = id_ ;
     name = name_ ; 
 }

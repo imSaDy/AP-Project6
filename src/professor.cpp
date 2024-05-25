@@ -1,6 +1,6 @@
 #include "professor.hpp"
 
-Professor::Professor(string position_, int id_ , int major_id_, string name_, string password_) : User(id_ ,name_ ,password_){
+Professor::Professor(string position_, string id_ , string major_id_, string name_, string password_) : User(id_ ,name_ ,password_){
     position = position_ ;
     major_id = major_id_ ;
     user_type = PROFESSOR ; 
@@ -12,15 +12,20 @@ void Professor::print(){
 
 void Professor::print_personal_page(){
     print_info();
-    for (auto post : posts){
+    for (int i = posts.size() - 1; i >= 0; i--){
+        Post* post = posts[i] ; 
         cout << post->id << " " << post->title << endl ; 
     }
 }
 
 void Professor::print_info(){
     cout << name << " " << major->get_name() << " " << position << " " ;
+    bool has_print_comma = false ; 
     for (auto course_offer : course_offers){
-        cout << course_offer->get_course_name() << COMMA ; 
+        if (has_print_comma)
+            cout << COMMA ; 
+        cout << course_offer->get_course_name() ; 
+        has_print_comma = true ; 
     }
     cout << endl ; 
 }

@@ -6,7 +6,7 @@
 
 class Student : public User {
 public: 
-    Student(int ,int ,int ,string ,string); 
+    Student(int ,string ,string ,string ,string); 
     void print() ; 
     void print_personal_page(); 
     void print_info(); 
@@ -15,10 +15,11 @@ public:
     void check_timing(CourseOffer*);
     void delete_course_offer(CourseOffer*);
     void print_course_offers();
-    int get_major_id(){return major_id;}
+    string get_major_id(){return major_id;}
     int get_semester(){return semester;}
 private:
     vector <CourseOffer*> course_offers ; 
-    int semester ,major_id ; 
+    int semester ;
+    string major_id ; 
     Major* major ; 
 }; 

@@ -25,6 +25,7 @@ public :
     void post_connect(Request*);
     void post_post(Request*);  
     void post_course_offer(Request*);
+    void notif_course_offer(Professor*);
     void handle_delete_request(Request*); 
     void delete_post(Request*);
     void delete_my_courses(Request*);
@@ -44,9 +45,9 @@ private :
     vector <CourseOffer*> course_offers ; 
     User* current_user ; 
     UserType user_type ; 
-    User* find_user_by_id(int);
-    Major* find_major_by_id(int); 
-    Course* find_course_by_id(int); 
-    CourseOffer* find_course_offer_by_id(int);
+    User* find_user_by_id(string);
+    Major* find_major_by_id(string); 
+    Course* find_course_by_id(string); 
+    CourseOffer* find_course_offer_by_id(string);
     Admin* admin; 
 }; 

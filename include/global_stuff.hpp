@@ -15,6 +15,7 @@ const int BACKOFSTRING = -1 ;
 
 const int TYPE_INDEX = 0 ; 
 const int FUNCTION_NAME_INDEX = 1 ; 
+const int QUESTION_MARK_INDEX = 2 ; 
 
 const char SEP = ' ' ; 
 const char COLLON = ':' ; 
@@ -22,8 +23,9 @@ const char SEMICOLLON = ';' ;
 const char COMMA = ',' ;  
 const char DOUBLEQUOTES = '\"' ;
 const char DASH = '-'  ; 
-const char BACKSLASH = '\\' ;
+const char SLASH = '/' ;
 
+const string QUESTION_MARK = "?" ; 
 const string NEW_LINE = "\n" ; 
 const string EMPTYSTRING = "" ;
 const string OK = "OK" ;
@@ -69,8 +71,8 @@ enum UserType {
 };
 
 struct Post{
-    Post(string title_ ,string message_ ,int id_){title = title_; message = message_; id = id_;}
-    int id ; 
+    Post(string title_ ,string message_ ,string id_){title = title_; message = message_; id = id_;}
+    string id ; 
     string title ,message ; 
 };
 
