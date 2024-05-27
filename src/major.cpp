@@ -6,5 +6,5 @@ Major::Major(string id_, string name_){
 }
 
 void Major::print(){
-    cout << id << " " << name << endl ; 
+    cout << id << SEP << name << endl ; 
 }

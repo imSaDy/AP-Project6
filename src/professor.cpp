@@ -7,19 +7,19 @@ Professor::Professor(string position_, string id_ , string major_id_, string nam
 }
 
 void Professor::print(){
-    cout << position << " " << id << " " << major_id << " " << name << " " << password << endl ; 
+    cout << position << SEP << id << SEP << major_id << SEP << name << SEP << password << endl ; 
 }
 
 void Professor::print_personal_page(){
     print_info();
     for (int i = posts.size() - 1; i >= 0; i--){
         Post* post = posts[i] ; 
-        cout << post->id << " " << post->title << endl ; 
+        cout << post->id << SEP << post->title << endl ; 
     }
 }
 
 void Professor::print_info(){
-    cout << name << " " << major->get_name() << " " << position << " " ;
+    cout << name << SEP << major->get_name() << SEP << position << SEP ;
     bool has_print_comma = false ; 
     for (auto course_offer : course_offers){
         if (has_print_comma)

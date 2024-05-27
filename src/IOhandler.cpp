@@ -1,7 +1,7 @@
 #include "IOhandler.hpp"
 
-Input::Input(string line_){
-    line = line_ ; 
+Input::Input(char *args[]){
+    arg = args ; 
 }
 
 void Input::build_tokens(){
@@ -56,4 +56,18 @@ vector<string> Input::get_text_parts(){
         }
     }
     return ret ; 
+}
+
+void Input::read_input(){
+    System system(arg) ;
+    while (getline(cin ,line)){
+        build_tokens() ; 
+        vector <string> request_vc = get_tokens() ; 
+        try{
+            system.run(request_vc) ; 
+        }catch(string &ex){
+            cout << ex << endl ; 
+        }
+        tokens.clear() ;
+    }
 }

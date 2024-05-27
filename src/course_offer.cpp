@@ -13,13 +13,13 @@ CourseOffer::CourseOffer(string course_id_, string professor_id_, int capacity_,
 }
 
 void CourseOffer::print(bool all_info){
-    cout << course_offer_id << " " << course->get_name() << " " << capacity << " " << professor_name ; 
+    cout << course_offer_id << SEP << course->get_name() << SEP << capacity << SEP << professor_name ; 
     if (all_info){
-        cout << " " ;
+        cout << SEP ;
         class_time.print();
-        cout << " " ;
+        cout << SEP ;
         exam_date.print() ; 
-        cout << " " << class_number ;
+        cout << SEP << class_number ;
     }
     cout << endl ; 
 }

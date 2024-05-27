@@ -7,9 +7,9 @@ Date::Date(string date)
 {
     Tokenizer tok ;
     vector <string> tokens = tok.tokenize(date , SLASH) ; 
-    year = stoi(tokens[0]) ; 
-    month = stoi(tokens[1]) ; 
-    day = stoi(tokens[2]) ;
+    year = stoi(tokens[YEAR_INDEX]) ; 
+    month = stoi(tokens[MONTH_INDEX]) ; 
+    day = stoi(tokens[DAY_INDEX]) ;
 }
 
 void Date::print(){

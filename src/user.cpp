@@ -9,7 +9,7 @@ User::User(string id_, string name_, string password_){
 
 void User::print_post(string id){
     Post* post = find_post_by_id(id) ; 
-    cout << post->id << " " << post->title << " " << post->message << endl ; 
+    cout << post->id << SEP << post->title << SEP << post->message << endl ; 
 }
 
 bool User::is_connect_with(User* user){
@@ -56,7 +56,7 @@ void User::print_notifications(){
     while (!notifications.empty()){
         auto user = notifications.back().first ; 
         string message = notifications.back().second ; 
-        cout << user->get_id() << " " << user->get_name() << ": " << message << endl ; 
+        cout << user->get_id() << SEP << user->get_name() << COLLON << SEP << message << endl ; 
         notifications.pop_back() ; 
     }
 }

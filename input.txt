@@ -29,7 +29,7 @@ DELETE my_courses ? id 1
 GET my_courses ?
 POST logout ?
 POST login ? id 810199999 password idk
-GET courses ?
+GET courses ? 
 GET courses ? id 1
 GET courses ? id 3
 GET notification ?

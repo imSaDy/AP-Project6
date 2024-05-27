@@ -18,9 +18,9 @@ void Course::check_valid_major_id(string major_id){
 
 void Course::print()
 {
-    cout << id << " " << credit << " " << prerequisite << " " << name << " " ; 
+    cout << id << SEP << credit << SEP << prerequisite << SEP << name << SEP ; 
     for (auto x : majors_id){
-        cout << x << " " ; 
+        cout << x << SEP ; 
     }  
     cout << endl ;
 }

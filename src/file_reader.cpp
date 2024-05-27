@@ -7,10 +7,10 @@ vector<Major*> Reader::get_majors_from_file(string major_path){
     major_str.erase(major_str.begin()) ; 
     for (auto line : major_str){
         vector <string> detail = tok.tokenize(line ,COMMA) ; 
-        ret.push_back(new Major(detail[0] ,detail[1])) ; 
+        ret.push_back(new Major(detail[MAJOR_ID_INDEX] ,detail[MAJOR_NAME_INDEX])) ; 
     }
     return ret ; 
-}
+} 
 
 vector<Course *> Reader::get_courses_from_file(string course_path){
     Tokenizer tok ; 
@@ -24,7 +24,7 @@ vector<Course *> Reader::get_courses_from_file(string course_path){
         for (auto id : major_id){
             major_id_int.push_back(id) ; 
         }
-        ret.push_back(new Course(detail[0] ,stoi(detail[2]) ,stoi(detail[3]) ,detail[1] ,major_id_int)) ; 
+        ret.push_back(new Course(detail[COURSE_ID_INDEX] ,stoi(detail[COURSE_CREDIT_INDEX]) ,stoi(detail[COURSE_PREREQUISITE_INDEX]) ,detail[COURSE_NAME_INEDEX] ,major_id_int)) ; 
     }
     return ret ; 
 }
@@ -36,7 +36,7 @@ vector<Student *> Reader::get_students_from_file(string student_path){
     student_str.erase(student_str.begin()) ; 
     for (auto line : student_str){
         vector <string> detail = tok.tokenize(line ,COMMA) ; 
-        ret.push_back(new Student(stoi(detail[3]) ,detail[0] ,detail[2] ,detail[1] ,detail[4])) ; 
+        ret.push_back(new Student(stoi(detail[STUDENT_SEMESTER_INDEX]) ,detail[STUDENT_ID_INDEX] ,detail[STUDENT_MAJOR_ID_INDEX] ,detail[STUDENT_NAME_INDEX] ,detail[STUDENT_PASSWORD_INDEX])) ; 
     }
     return ret ;
 }
@@ -48,7 +48,7 @@ vector<Professor*> Reader::get_professors_from_file(string professor_path){
     professor_str.erase(professor_str.begin()) ; 
     for (auto line : professor_str){
         vector <string> detail = tok.tokenize(line ,COMMA) ; 
-        ret.push_back(new Professor(detail[3] ,detail[0] ,detail[2] ,detail[1] ,detail[4])) ; 
+        ret.push_back(new Professor(detail[PROFESSOR_POSITION_INDEX] ,detail[PROFESSOR_ID_INDEX] ,detail[PROFESSOR_MAJOR_ID_INDEX] ,detail[PROFESSOR_NAME_INDEX] ,detail[PROFESSOR_PASSWORD_INDEX])) ; 
     }
     return ret ; 
 }

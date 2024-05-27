@@ -1,15 +1,13 @@
 #include "system.hpp"
 
-#define hey cout << "hey" << endl ;
-
 System::System(char *arg[]){
-    new_id_course_offer = 1 ; 
+    new_id_course_offer = NEW_ID_COURSE_OFFER_BEGIN ; 
     user_type = NOT_LOGIN ; 
     Reader reader ; 
-    majors = reader.get_majors_from_file(arg[1]) ; 
-    courses = reader.get_courses_from_file(arg[3]) ; 
-    vector <Professor*> professors = reader.get_professors_from_file(arg[4]) ;
-    vector <Student*> students = reader.get_students_from_file(arg[2]) ; 
+    majors = reader.get_majors_from_file(arg[MAJOR_FILE_INDEX]) ; 
+    courses = reader.get_courses_from_file(arg[COURSE_FILE_INDEX]) ; 
+    vector <Professor*> professors = reader.get_professors_from_file(arg[PROFESSOR_FILE_INDEX]) ;
+    vector <Student*> students = reader.get_students_from_file(arg[STUDENT_FILE_INDEX]) ; 
     for (auto student : students){
         student->set_major(find_major_by_id(student->get_major_id())) ; 
         users.push_back(student) ; 
@@ -26,19 +24,9 @@ System::System(char *arg[]){
     users.push_back(admin) ; 
 }
 
-void System::run(){
-    string input ; 
-    while (getline(cin ,input)){
-        Input request_line = Input(input) ; 
-        request_line.build_tokens() ; 
-        vector <string> request_vc = request_line.get_tokens() ; 
-        try{
-            Request* request = new Request(request_vc) ; 
-            handle_request(request) ; 
-        }catch(string &ex){
-            cout << ex << endl ; 
-        }
-    }
+void System::run(vector <string> request_vc){
+    Request* request = new Request(request_vc) ; 
+    handle_request(request) ; 
 }
 
 User* System::find_user_by_id(string id){
@@ -75,15 +63,15 @@ CourseOffer *System::find_course_offer_by_id(string id){
 
 bool System::is_natural_number(string num){
     for (auto digit : num){
-        if (digit < '0' || digit > '9') return false ; 
+        if (digit < ZERO || digit > NINE) return false ; 
     }
-    if (num[0] == '0') return false ;
+    if (num[0] == ZERO) return false ;
     return true ; 
 }
 
 bool System::is_arithmetic_number(string num){
     for (auto digit : num){
-        if (digit < '0' || digit > '9') return false ; 
+        if (digit < ZERO || digit > NINE) return false ; 
     }
     return true;
 }
@@ -182,7 +170,6 @@ void System::post_course_offer(Request* request){
     professor->add_course_offer(course_offer) ;
     course_offers.push_back(course_offer) ;
     notif_course_offer(professor) ; 
-    //current_user->notif_connected_users(NEW_COURSE_OFFERING) ;
     throw OK ; 
 }
 

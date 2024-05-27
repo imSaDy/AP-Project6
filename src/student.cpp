@@ -7,19 +7,19 @@ Student::Student(int semester_, string id_ , string major_id_, string name, stri
 }
 
 void Student::print(){
-    cout << semester << " " << id << " " << major_id << " " << name << " " << password << endl ; 
+    cout << semester << SEP << id << SEP << major_id << SEP << name << SEP << password << endl ; 
 }
 
 void Student::print_personal_page(){
     print_info() ;
     for (int i = posts.size() - 1; i >= 0; i--){
         Post* post = posts[i] ; 
-        cout << post->id << " " << post->title << endl ; 
+        cout << post->id << SEP << post->title << endl ; 
     }
 }
 
 void Student::print_info(){
-    cout << name << " " << major->get_name() << " " << semester << " " ;
+    cout << name << SEP << major->get_name() << SEP << semester << SEP ;
     bool has_print_comma = false ; 
     for (auto course_offer : course_offers){
         if (has_print_comma)

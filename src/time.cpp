@@ -7,10 +7,10 @@ Time::Time(string time_str)
 {
     Tokenizer tok ;
     vector <string> tokens = tok.tokenize(time_str ,COLLON) ; 
-    day = tokens[0] ; 
+    day = tokens[TIME_DAY_INDEX] ; 
     vector <string> times = tok.tokenize(tokens[1] ,DASH) ;
-    start = stoi(times[0]) ; 
-    end = stoi(times[1]) ;
+    start = stoi(times[TIME_START_INDEX]) ; 
+    end = stoi(times[TIME_END_INDEX]) ;
 }
 
 bool Time::overlap(Time other){

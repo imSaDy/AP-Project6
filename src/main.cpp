@@ -1,8 +1,8 @@
 #include "global_stuff.hpp"
-#include "system.hpp"
+#include "IOhandler.hpp"
 
 int main(int argc ,char* arg[]){
-    System system(arg) ; 
-    system.run() ;
+    Input iohandler(arg) ; 
+    iohandler.read_input() ;
     return 0 ; 
 }

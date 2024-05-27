@@ -6,7 +6,6 @@
 #include "course.hpp" 
 #include "major.hpp"
 #include "file_reader.hpp"
-#include "IOhandler.hpp"
 #include "admin.hpp"
 #include "request.hpp"
 #include "course_offer.hpp"
@@ -15,7 +14,7 @@
 class System {
 public : 
     System(char*[]);
-    void run(); 
+    void run(vector <string>); 
     bool is_natural_number(string); 
     bool is_arithmetic_number(string);
     void handle_request(Request*); 
