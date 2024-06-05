@@ -12,7 +12,9 @@ string Request::get_parameter(string word){
             return request[i + 1] ; 
         }
     }
-    throw BAD_REQUEST ; 
+    if (word != IMAGE)
+        throw BAD_REQUEST ; 
+    return NO_IMAGE ;
 }
 
 string Request::get_type(){

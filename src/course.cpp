@@ -15,12 +15,3 @@ void Course::check_valid_major_id(string major_id){
     }
     throw PERMISSION_DENIED ; 
 }
-
-void Course::print()
-{
-    cout << id << SEP << credit << SEP << prerequisite << SEP << name << SEP ; 
-    for (auto x : majors_id){
-        cout << x << SEP ; 
-    }  
-    cout << endl ;
-}

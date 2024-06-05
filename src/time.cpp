@@ -20,7 +20,8 @@ bool Time::overlap(Time other){
 }
 
 void Time::print(){
-    cout << day << COLLON << start << DASH << end ;
+    buffer = day + COLLON + to_string(start) + DASH + to_string(end) ;
+    throw buffer ; 
 }
 
 bool Time::equal(Time other){

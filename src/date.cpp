@@ -7,13 +7,14 @@ Date::Date(string date)
 {
     Tokenizer tok ;
     vector <string> tokens = tok.tokenize(date , SLASH) ; 
-    year = stoi(tokens[YEAR_INDEX]) ; 
-    month = stoi(tokens[MONTH_INDEX]) ; 
-    day = stoi(tokens[DAY_INDEX]) ;
+    year = tokens[YEAR_INDEX] ; 
+    month = tokens[MONTH_INDEX] ; 
+    day = tokens[DAY_INDEX] ;
 }
 
 void Date::print(){
-    cout << year << SLASH << month << SLASH << day ; 
+    buffer = year + SLASH + month + SLASH + day ; 
+    throw buffer ;
 }
 
 bool Date::equal(Date other){

@@ -8,6 +8,7 @@ public:
     string get_parameter(string word); 
     string get_type(); 
     string get_function_name();
+    int get_size(){return request.size();}
 private:
     vector <string> request ;
 };

@@ -6,7 +6,7 @@ Input::Input(char *args[]){
 
 void Input::build_tokens(){
     Tokenizer tok ; 
-    vector <string> parts = tok.tokenize(line ,SEP) ;
+    vector <string> parts = tok.tokenize(line ,SEP.back()) ;
     vector <string> text_parts = get_text_parts() ;
     bool is_text = false ;
     int text_count = 0 ; 
@@ -65,8 +65,17 @@ void Input::read_input(){
         vector <string> request_vc = get_tokens() ; 
         try{
             system.run(request_vc) ; 
-        }catch(string &ex){
-            cout << ex << endl ; 
+        }catch(string &buffer){
+            cout << buffer ; 
+        }
+        while (system.is_system_closing_ta_form()){
+            string response ; 
+            getline(cin ,response) ; 
+            try {
+                system.close_ta_request(response);
+            }catch (string &buffer){
+                cout << buffer ; 
+            }
         }
         tokens.clear() ;
     }

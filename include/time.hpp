@@ -13,5 +13,6 @@ public:
     string get_day(){return day;}
 private: 
     string day ; 
-    int start ,end ; 
+    int start ,end ;
+    string buffer ;  
 };

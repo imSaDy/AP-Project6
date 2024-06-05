@@ -8,10 +8,11 @@ public:
     Date();
     Date(string date);
     void print();
-    int get_year(){return year;}
-    int get_month(){return month;}
-    int get_day(){return day;}
+    string get_year(){return year;}
+    string get_month(){return month;}
+    string get_day(){return day;}
     bool equal(Date);
 private:
-    int year ,month ,day ; 
+    string year ,month ,day ; 
+    string buffer ; 
 };

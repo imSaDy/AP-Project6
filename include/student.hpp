@@ -7,7 +7,6 @@
 class Student : public User {
 public: 
     Student(int ,string ,string ,string ,string); 
-    void print() ; 
     void print_personal_page(); 
     void print_info(); 
     void set_major(Major* major_){major = major_;}
@@ -15,6 +14,7 @@ public:
     void check_timing(CourseOffer*);
     void delete_course_offer(CourseOffer*);
     void print_course_offers();
+    void print_info_for_ta_request();
     string get_major_id(){return major_id;}
     int get_semester(){return semester;}
 private:
