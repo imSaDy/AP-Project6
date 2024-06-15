@@ -67,7 +67,9 @@ CourseOffer *System::find_course_offer_by_id(string id){
 
 bool System::is_natural_number(string num){
     for (auto digit : num){
-        if (digit < ZERO || digit > NINE) return false ; 
+        if (digit < ZERO || digit > NINE){
+            return false ; 
+        }
     }
     if (num[0] == ZERO) return false ;
     return true ; 
@@ -200,7 +202,7 @@ void System::post_course_offer(Request* request){
     if (!is_natural_number(request->get_parameter(COURSE_ID)))
         throw BAD_REQUEST ; 
     if (!is_natural_number(request->get_parameter(CAPACITY)))
-        throw BAD_REQUEST ; 
+        throw BAD_REQUEST ;
     if (!is_natural_number(request->get_parameter(CLASS_NUMBER)))
         throw BAD_REQUEST ; 
     if (request->get_size() != POST_COURSE_OFFER_REQUEST_SIZE)

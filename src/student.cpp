@@ -68,6 +68,6 @@ void Student::print_course_offers(){
 
 void Student::print_info_for_ta_request(){
     buffer = EMPTYSTRING ; 
-    buffer = id + SEP + name + SEP + to_string(semester) + COLLON + NEW_LINE ; 
+    buffer = id + SEP + name + SEP + to_string(semester) + COLLON  ; 
     throw buffer ; 
 }

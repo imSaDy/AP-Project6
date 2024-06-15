@@ -15,7 +15,7 @@ public:
    void print_post(string id);
    string get_id(){return id;}
    string get_name(){return name;}
-   void check_password(string password_){if(password != password_) throw PERMISSION_DENIED;}
+   void check_password(string password_){if(password != password_){throw PERMISSION_DENIED;}}
    UserType get_user_type(){return user_type;}
    bool is_connect_with(User*);
    void connect_with(User*); 
