@@ -18,25 +18,3 @@ The server appears to manage data for a university, including students, courses,
 * **HTML** (for templates and static pages)
 * **Makefile** (for build automation)
 
-## Build and Run
-
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/imSaDy/AP-Project6.git](https://github.com/imSaDy/AP-Project6.git)
-    cd AP-Project6
-    ```
-
-2.  **Compile the project:**
-    Run `make` to compile the server executable.
-    ```bash
-    make
-    ```
-
-3.  **Run the server:**
-    *\[TODO: Add the command to run the executable. What is the executable's name?]*
-    ```bash
-    ./[your_server_executable_name]
-    ```
-
-4.  **Access the application:**
-    Once running, the application can be accessed at `http://localhost:[PORT]` (e.g., `http://localhost:8080`).
