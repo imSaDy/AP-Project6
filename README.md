@@ -1,20 +1,28 @@
-# AP HTTP - C++ Web Server
+# UTMS: University Management System
 
-This project is a simple, server-side web application framework written in C++ for an Advanced Programming course. It is designed to handle HTTP requests, serve static content, and render dynamic templates.
+A command-line university system in C++ for the Advanced Programming course at the University of Tehran, Spring 2024.
 
-The server appears to manage data for a university, including students, courses, professors, and majors, likely loaded from the `.csv` files.
+Students, professors and an administrator log in and send requests in a simple `GET` / `POST` / `PUT` / `DELETE` format. The system supports:
 
-## Features
+- logging in and out, and connecting to other users
+- posting on a personal page
+- course offerings created by the administrator, with capacity, time slot, exam date and class number
+- students enrolling in and dropping courses, with checks for clashing class times or exam dates and for the student's semester and major
+- notifications to connected users and course members
+- profile photos, and a channel for each course
+- teaching-assistant application forms that professors open and students apply to
 
-* **HTTP Server:** Core server logic to handle `GET` and `POST` requests.
-* **Static File Serving:** Serves static assets (e.g., HTML, CSS) from the `/static` directory.
-* **Dynamic Templating:** Renders dynamic web pages using templates from the `/template` directory.
-* **Data Handling:** Parses and manages data from `.csv` files (students, courses, etc.).
-* **Modular Structure:** Organized with separate directories for server logic, utilities, and assets.
+Each request returns `OK`, `Not Found`, `Bad Request`, `Permission Denied` or `Empty`. Majors, students, courses and professors are loaded from the CSV files in `csv/` at startup.
 
-## Technologies Used
+## Building and running
 
-* **C++** (for all backend logic)
-* **HTML** (for templates and static pages)
-* **Makefile** (for build automation)
+Requires g++ with C++20 support.
 
+```sh
+make
+./utms.out csv/majors.csv csv/students.csv csv/courses.csv csv/professors.csv < input.txt
+```
+
+`input.txt` is a sample list of requests.
+
+The `server`, `utils`, `static`, `template` and `examples` folders contain the APHTTP library provided by the course and its example files. The command-line program in `src` does not use them.
